@@ -137,14 +137,23 @@ main h3 {
 }
 
 /* Call to Action Styles */
+
+
+#cta-title{
+    text-transform: uppercase;
+}
+
+#cta-text{
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .cta-container {
     text-align: center;
     padding: 30px;
     background-color: #edebf1;
     margin-top: 30px;
-}
-h2.cta-title{
-    font-style: italic;    
+    border-style: double;
 }
 
 .cta-button {
