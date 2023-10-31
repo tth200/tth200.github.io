@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forms- WanderLust Voyages</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+  /* Style for the form: setting width, auto margin for centering, padding,
+    background color, border radius for rounded corners, and font size */
+    #form {
+    width: 300px;
+    margin: 20vh auto 0 auto; /* This centers the form vertically and
+    horizontally */
+    padding: 20px;
+    background-color: whitesmoke; /* Light gray background for the form */
+    border-radius: 4px; /* Rounded corners for the form */
+    font-size: 12px;
+    }
+    /* Style for the form's heading: setting the text color and alignment */
+    #form h1 {
+    color: #0f2027; /* Dark text color for the heading */
+    text-align: center; /* Center-align the heading */
+    }
+    /* Style for the form's button: padding, top margin, full width, text color,
+    background color, no border, and rounded corners */
+    #form button {
+    padding: 10px;
+    margin-top: 10px; /* Space above the button */
+    width: 100%; /* Make the button expand the full width of the form */
+    color: white; /* White text color for the button */
+    background-color: rgb(92, 102, 194); /* Blue background color for the button
+    */
+    border: none; /* Remove the default border */
+    border-radius: 4px; /* Rounded corners for the button */
+    cursor: pointer;
+    }
+
+    /* Container for input fields: using flexbox for layout, column direction */
+    .input-control {
+    display: flex;
+    flex-direction: column; /* Stack the children (label, input, error message)
+    vertically */
+    }
+    /* Style for input fields inside the container: border style, rounded corners,
+    block-level display, font size, padding, full width */
+    .input-control input {
+    border: 2px solid #f0f0f0; /* Light gray border for the inputs */
+    box-sizing: border-box;
+    border-radius: 4px; /* Rounded corners for the inputs */
+    display: block; /* Display input field as a block */
+    font-size: 12px; /* Text size within the input field */
+    padding: 10px; /* Space inside the input field */
+    width: 100%; /* Input field takes up 100% of the form's width */
+    }
+    /* Remove focus outline from input fields */
+    .input-control input:focus {
+    outline: 0; /* Remove outline when input is focused */
+    }
+    /* Style for input fields with class "success": green border */
+    .input-control.success input {
+    border-color: #09c372; /* Green border to indicate successful input */
+    }
+    /* Style for input fields with class "error": red border */
+    .input-control.error input {
+    border-color: #ff3860; /* Red border to indicate an error in input */
+    }
+    /* Style for the error message: text color, font size, and height */
+    .input-control .error {
+    color: #ff3860; /* Red text color for error messages */
+    font-size: 9px; /* Smaller font size for error messages */
+    height: 13px; /* Explicit height to ensure consistent spacing */
+    }
+    </style>
+    </head>
+<body>
+    <div class="container"> 
+      <form id="form" action="/"> 
+        <h1>Registration</h1> 
+        <div class="input-control">
+           <label for="username">Username</label> 
+           <input id="username" name="username" type="text"> 
+           <div class="error"></div> 
+        </div> 
+        <div class="input-control"> 
+          <label for="email">Email</label> 
+          <input id="email" name="email" type="text"> 
+          <div class="error"></div> 
+        </div> 
+        <div class="input-control"> 
+          <label for="password">Password</label> 
+          <input id="password"name="password" type="password"> 
+          <div class="error"></div> 
+        </div> 
+        <div class="input-control"> 
+          <label for="password2">Password again</label> 
+          <input id="password2"name="password2" type="password"> 
+          <div class="error"></div> 
+        </div> 
+        <button type="submit">Sign Up</button>
+      </form> 
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('form');
+      const inputs = form.querySelectorAll('input');
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        let allValid = true;
+
+        inputs.forEach(input => {
+          if (!validateInput(input)) {
+            allValid = false;
+          }
+        });
+
+        if (allValid) {
+          console.log('All fields are valid!');
+          // You can add any other actions here if all fields are valid.
+        }
+      });
+
+      function validateInput(input) {
+        const inputName = input.getAttribute('name');
+        const inputValue = input.value.trim();
+        const inputControl = input.parentElement;
+        const errorDisplay = inputControl.querySelector('.error');
+        let isValid = false;
+
+        switch(inputName) {
+          case 'username':
+            isValid = inputValue !== '';
+            errorDisplay.textContent = isValid ? '' : 'Username is required';
+            break;
+          case 'email':
+            const emailRegex = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
+            isValid = emailRegex.test(inputValue);
+            errorDisplay.textContent = isValid ? '' : 'Provide a valid email address';
+            break;
+          case 'password':
+            isValid = inputValue.length >= 8;
+            errorDisplay.textContent = isValid ? '' : 'Password must be at least 8 characters';
+            break;
+          case 'password2':
+            const password = form.querySelector('input[name="password"]').value.trim();
+            isValid = inputValue === password;
+            errorDisplay.textContent = isValid ? '' : "Passwords don't match";
+            break;
+          default:
+            console.error(`Unknown input name: ${inputName}`);
+        }
+
+        inputControl.classList.toggle('success', isValid);
+        inputControl.classList.toggle('error', !isValid);
+        return isValid;
+      }
+    });
+</script>
+</body>
