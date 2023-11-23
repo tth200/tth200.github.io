@@ -1,4 +1,4 @@
-const apiKey = 'Yd2cf99801c78f017d19ae418742ee7e1';
+const apiKey = 'd2cf99801c78f017d19ae418742ee7e1';
 const cityInput = document.getElementById('cityInput');
 const searchButton = document.getElementById('btn');
 const weatherInfo = document.getElementById('weather-info'); 
@@ -8,7 +8,7 @@ searchButton.addEventListener('click', () => {
     alert('Please enter a city name.');
     return;
   }
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${Yd2cf99801c78f017d19ae418742ee7e1}`;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${d2cf99801c78f017d19ae418742ee7e1}`;
 
   fetch(apiUrl)
     .then(response => {
